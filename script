@@ -22,7 +22,6 @@
     };
 
     if (window.top === window.self) {
-     
         setInterval(() => {
             const playButonu = document.querySelector('.play-that-video');
             if (playButonu && playButonu.offsetParent !== null && !playButonu.hasAttribute('hidden')) {
@@ -40,8 +39,7 @@
         });
 
     } else {
-       
-        let gecisTetiklendi = false;
+         let gecisTetiklendi = false;
 
         setInterval(() => {
             if (!window.hfcAltyaziSecildi) {
