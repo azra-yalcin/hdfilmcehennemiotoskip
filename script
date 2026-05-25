@@ -33,7 +33,7 @@
             if (event.data === 'gecis_vakti_geldi') {
                 const sonrakiButon = document.querySelector('.next-episode');
                 if (sonrakiButon && sonrakiButon.href) {
-                    console.log(Script: 3 dakika kaldı! Yeni bölüme yönlendiriliyor...");
+                    console.log("Script: 3 dakika kaldı! Yeni bölüme yönlendiriliyor...");
                     window.location.assign(sonrakiButon.href);
                 }
             }
