@@ -5,14 +5,13 @@
 // @description  Oynatıcı içindeki "Türkçe Altyazılı" butonunu bulur ve 3 dk kala diğer bölüme atlar.
 // @match        *://*.hdfilmcehennemi.*/*
 // @match        *://*/*
-// @allFrames    true
 // @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
 
-    const KAC_SANIYE_KALA = 160; // yaklasık 3 dakika olarak ayarlandi
+    const KAC_SANIYE_KALA = 180; // 3 Dakika
 
     // Tıklama simülatörü
     const gercekTiklama = (element) => {
@@ -21,7 +20,7 @@
         element.dispatchEvent(event);
     };
 
-    if (window.top === window.self) {
+    if (window.top === window.self) { 
         setInterval(() => {
             const playButonu = document.querySelector('.play-that-video');
             if (playButonu && playButonu.offsetParent !== null && !playButonu.hasAttribute('hidden')) {
@@ -32,26 +31,25 @@
             if (event.data === 'gecis_vakti_geldi') {
                 const sonrakiButon = document.querySelector('.next-episode');
                 if (sonrakiButon && sonrakiButon.href) {
-                    console.log("Script: 3 dakika kaldı! Yeni bölüme yönlendiriliyor...");
+                    console.log("Script 3 dakika kaldı! Yeni bölüme yönlendiriliyor...");
                     window.location.assign(sonrakiButon.href);
                 }
             }
         });
 
-    } else {
-         let gecisTetiklendi = false;
+    } else {let gecisTetiklendi = false;
 
         setInterval(() => {
             if (!window.hfcAltyaziSecildi) {
                 const tumElementler = Array.from(document.querySelectorAll('div, span, button'));
                 const altyaziButonu = tumElementler.find(el =>
                     el.textContent &&
-                    el.textContent.trim() === 'Türkçe Altyazılı' &&  //burada dublaj altyazi tercihi
+                    el.textContent.trim() === 'Türkçe Altyazılı' &&
                     el.children.length === 0 // İç içe elementleri elemek için
                 );
 
                 if (altyaziButonu) {
-                    console.log(" 'Türkçe Altyazılı' butonu bulundu, tıklanıyor...");
+                    console.log(" Script: Oynatıcı içindeki 'Türkçe Altyazılı' butonu bulundu, tıklanıyor...");
                     gercekTiklama(altyaziButonu);
                     window.hfcAltyaziSecildi = true; // Sadece 1 kere tıkla ki sürekli yenilemesin
                 }
@@ -64,7 +62,7 @@
 
                 if (!gecisTetiklendi && kalanZaman <= KAC_SANIYE_KALA && video.duration > 600) {
                     gecisTetiklendi = true;
-                    console.log(" Script: Bitişe 3 dk kaldı, ana sayfaya geçiş !");
+                    console.log(" Script: Bitişe 5 dk kaldı, ana sayfaya geçiş emri veriliyor!");
                     window.top.postMessage('gecis_vakti_geldi', '*');
                 }
             }
